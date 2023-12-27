@@ -30,6 +30,9 @@ export class UsersService {
       await this.userRepo.save(user);
       return user;
     } catch (err) {
+      if (err.code == 23505) {
+        throw new BadRequestException({ message: 'Email Already Registered' });
+      }
       throw new BadRequestException({ message: 'Cannot Register User' });
     }
   }
