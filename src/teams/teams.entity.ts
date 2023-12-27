@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { Project, User } from 'src/entities';
+import { Project, User } from '@/entities';
 
 export enum TeamType {
   Backend = 'backend',

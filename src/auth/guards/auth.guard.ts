@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '@/users/users.service';
 
 import { IAuthRequest, IPayload } from '../interfaces';
 

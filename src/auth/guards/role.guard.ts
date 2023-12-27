@@ -5,7 +5,7 @@ import {
   mixin,
 } from '@nestjs/common';
 
-import { UserRole } from 'src/entities';
+import { UserRole } from '@/entities';
 
 import { IAuthRequest } from '../interfaces';
 

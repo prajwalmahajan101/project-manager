@@ -7,8 +7,8 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { UsersService } from 'src/users/users.service';
-import { User } from 'src/entities';
+import { UsersService } from '@/users/users.service';
+import { User } from '@/entities';
 
 import { RegisterUserDto, SignInUserDto } from './dtos';
 import { IPayload } from './interfaces';

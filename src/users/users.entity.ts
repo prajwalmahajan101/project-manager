@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Project, Task, Team } from 'src/entities';
+import { Project, Task, Team } from '@/entities';
 
 export enum UserRole {
   SuperAdmin = 'super-admin',

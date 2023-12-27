@@ -4,7 +4,7 @@ import {
   createParamDecorator,
 } from '@nestjs/common';
 
-import { User } from 'src/entities';
+import { User } from '@/entities';
 
 import { IAuthRequest } from '../interfaces';
 
