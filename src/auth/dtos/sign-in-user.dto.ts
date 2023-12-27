@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class SignInUserDto {
   @IsEmail({}, { message: 'Invalid Email' })
-  @ApiProperty({ type: String, example: 'prajwal.admin@google.com' })
+  @ApiProperty({ type: String, example: 'prajwal.admin@gmail.com' })
   email: string;
 
   @IsString({ message: 'password must be string' })

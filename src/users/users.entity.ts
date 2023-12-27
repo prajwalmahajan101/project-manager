@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import { Project, Task, Team } from '@/entities';
+import { Exclude } from 'class-transformer';
 
 export enum UserRole {
   SuperAdmin = 'super-admin',
@@ -28,6 +29,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @Column({ default: null })

@@ -15,7 +15,7 @@ export class RegisterUserDto {
   username: string;
 
   @IsEmail({}, { message: 'Invalid Email' })
-  @ApiProperty({ type: String, example: 'prajwal.admin@google.com' })
+  @ApiProperty({ type: String, example: 'prajwal.admin@gmail.com' })
   email: string;
 
   @IsString({ message: 'Password must be string' })

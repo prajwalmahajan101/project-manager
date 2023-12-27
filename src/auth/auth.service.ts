@@ -1,9 +1,5 @@
 import { verify } from 'argon2';
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -26,25 +22,20 @@ export class AuthService {
   }
 
   async signin(dto: SignInUserDto): Promise<{ access_token: string }> {
-    try {
-      const user = await this.usersService.findByEmail(dto.email);
-      if (!user) {
-        throw new UnauthorizedException({
-          message: 'Email/Password Not Matched',
-        });
-      }
-      const isMatched = await verify(user.password, dto.password);
-      if (!isMatched) {
-        throw new UnauthorizedException({
-          message: 'Email/Password Not Matched',
-        });
-      }
-
-      const access_token = await this.#generateToken(user);
-      return { access_token };
-    } catch (err) {
-      throw new BadRequestException({ message: 'Some Error Occurred' });
+    const user = await this.usersService.findByEmail(dto.email);
+    if (!user) {
+      throw new UnauthorizedException({
+        message: 'Email/Password Not Matched',
+      });
     }
+    const isMatched = await verify(user.password, dto.password);
+    if (!isMatched) {
+      throw new UnauthorizedException({
+        message: 'Email/Password Not Matched',
+      });
+    }
+    const access_token = await this.#generateToken(user);
+    return { access_token };
   }
 
   async #generateToken(user: User): Promise<string> {
@@ -57,7 +48,7 @@ export class AuthService {
     const secret = this.config.get<string>('JWT_SECRET');
 
     return await this.jwt.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '10h',
       secret,
     });
   }
