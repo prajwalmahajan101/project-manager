@@ -27,7 +27,7 @@ describe('App e2e', () => {
     app.close();
   });
 
-  describe('Authentication', () => {
+  describe('Authentication Module', () => {
     const registerDto: RegisterUserDto = {
       username: 'test-user',
       email: 'test@gmail.com',
@@ -217,7 +217,7 @@ describe('App e2e', () => {
           .spec()
           .post('/auth/signin')
           .withBody({ password, email: '123@gmail.com' })
-          .expectStatus(400);
+          .expectStatus(401);
       });
       //without password
       it('Should throw without password', () => {
@@ -251,7 +251,7 @@ describe('App e2e', () => {
           .spec()
           .post('/auth/signin')
           .withBody({ password: `password123`, email })
-          .expectStatus(400);
+          .expectStatus(401);
       });
 
       // Should Login
@@ -264,5 +264,80 @@ describe('App e2e', () => {
           .stores('token', 'access_token');
       });
     });
+  });
+
+  describe('User Module', () => {
+    // Find All
+    describe('Find All User', () => {
+      // Without token
+      it('Should throw without Token', () => {
+        return pactum.spec().get('/users').expectStatus(401);
+      });
+
+      //with invalid token
+      it('Should throw with invalid Token', () => {
+        return pactum
+          .spec()
+          .get('/users')
+          .withBearerToken('token')
+          .expectStatus(401);
+      });
+
+      // with valid token
+      it('Should fetch Users with token', () => {
+        return pactum
+          .spec()
+          .get('/users')
+          .withBearerToken('$S{token}')
+          .expectStatus(200);
+      });
+    });
+    // Find One
+    describe('Find User', () => {
+      // Without token
+      it('Should throw without Token', () => {
+        return pactum.spec().get('/users/1').expectStatus(401);
+      });
+
+      //with invalid token
+      it('Should throw with invalid Token', () => {
+        return pactum
+          .spec()
+          .get('/users/1')
+          .withBearerToken('token')
+          .expectStatus(401);
+      });
+
+      // with invalid params
+      it('Should throw with invalid Param', () => {
+        return pactum
+          .spec()
+          .get('/users/as')
+          .withBearerToken('$S{token}')
+          .expectStatus(400);
+      });
+
+      // with valid but not Found params
+      it('Should throw with valid but not present Id Param', () => {
+        return pactum
+          .spec()
+          .get('/users/12')
+          .withBearerToken('$S{token}')
+          .expectStatus(404);
+      });
+
+      //with Valid Id
+      it('Should fetch User', () => {
+        return pactum
+          .spec()
+          .get('/users/1')
+          .withBearerToken('$S{token}')
+          .expectStatus(200);
+      });
+    });
+    // Update
+    describe('Update User', () => {});
+    // Delete
+    describe('Delete User', () => {});
   });
 });
