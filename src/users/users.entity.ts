@@ -41,7 +41,10 @@ export class User {
   role: UserRole;
 
   @OneToMany(() => Project, (project) => project.manager)
-  managingProjects: Project[];
+  managedProjects: Project[];
+
+  @OneToMany(() => Team, (team) => team.manager)
+  managedTeams: Team[];
 
   @ManyToMany(() => Team, (team) => team.members)
   teams: Team[];

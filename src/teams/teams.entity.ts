@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   Column,
+  ManyToOne,
 } from 'typeorm';
 
 export enum TeamType {
@@ -29,4 +30,7 @@ export class Team {
 
   @ManyToMany(() => Project, (project) => project.teams)
   projects: Project[];
+
+  @ManyToOne(() => User, (user) => user.managedTeams)
+  manager: User;
 }

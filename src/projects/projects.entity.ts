@@ -18,7 +18,7 @@ export class Project {
   @Column({ length: 100 })
   name: string;
 
-  @OneToMany(() => User, (user) => user.managingProjects)
+  @OneToMany(() => User, (user) => user.managedProjects)
   manager: User;
 
   @ManyToOne(() => Task, (task) => task.project)
