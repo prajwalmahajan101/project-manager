@@ -1,5 +1,3 @@
-import { Project } from 'src/projects/projects.entity';
-import { User } from 'src/users/users.entity';
 import {
   PrimaryGeneratedColumn,
   Entity,
@@ -7,6 +5,8 @@ import {
   OneToMany,
   Column,
 } from 'typeorm';
+
+import { Project, User } from 'src/entities';
 
 export enum TaskType {
   None = 'none',

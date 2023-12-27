@@ -4,7 +4,9 @@ import {
   UnauthorizedException,
   mixin,
 } from '@nestjs/common';
+
 import { UserRole } from 'src/entities';
+
 import { IAuthRequest } from '../interfaces';
 
 export const RoleGuard = (role: UserRole) => {

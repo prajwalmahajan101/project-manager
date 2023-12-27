@@ -1,6 +1,3 @@
-import { Task } from 'src/tasks/tasks.entity';
-import { Team } from 'src/teams/teams.entity';
-import { User } from 'src/users/users.entity';
 import {
   Column,
   Entity,
@@ -9,6 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Task, Team, User } from 'src/entities';
 
 @Entity()
 export class Project {

@@ -13,7 +13,35 @@ services:
       - task-manager
     volumes:
       - data:/var/lib/postgresql/data
+  db-prod:
+    container_name: app-db-prod
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=prod_admin
+      - POSTGRES_USER=prod_admin
+      - POSTGRES_DB=app_prod_db
+    ports:
+      - 5431:5432
+    networks:
+      - task-manager
+    volumes:
+      - data-prod:/var/lib/postgresql/data
+  db-test:
+    container_name: app-db-prod
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=test_admin
+      - POSTGRES_USER=test_admin
+      - POSTGRES_DB=app_test_db
+    ports:
+      - 5430:5432
+    networks:
+      - task-manager
+    volumes:
+      - data-test:/var/lib/postgresql/data
 networks:
   task-manager:
 volumes:
   data:
+  data-prod:
+  data-test:

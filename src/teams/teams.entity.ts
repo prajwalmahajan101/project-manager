@@ -1,5 +1,3 @@
-import { Project } from 'src/projects/projects.entity';
-import { User } from 'src/users/users.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,6 +6,8 @@ import {
   Column,
   ManyToOne,
 } from 'typeorm';
+
+import { Project, User } from 'src/entities';
 
 export enum TeamType {
   Backend = 'backend',

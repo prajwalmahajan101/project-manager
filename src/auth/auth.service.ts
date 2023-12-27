@@ -1,15 +1,18 @@
+import { verify } from 'argon2';
 import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { verify } from 'argon2';
-import { RegisterUserDto, SignInUserDto } from './dtos';
-import { User } from 'src/users/users.entity';
-import { UsersService } from 'src/users/users.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+
+import { UsersService } from 'src/users/users.service';
+import { User } from 'src/entities';
+
+import { RegisterUserDto, SignInUserDto } from './dtos';
 import { IPayload } from './interfaces';
+
 @Injectable()
 export class AuthService {
   constructor(

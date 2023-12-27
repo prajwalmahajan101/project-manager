@@ -3,7 +3,9 @@ import {
   UnauthorizedException,
   createParamDecorator,
 } from '@nestjs/common';
-import { User } from 'src/users/users.entity';
+
+import { User } from 'src/entities';
+
 import { IAuthRequest } from '../interfaces';
 
 export const GetAuthUser = createParamDecorator(

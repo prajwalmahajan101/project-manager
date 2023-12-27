@@ -1,6 +1,3 @@
-import { Project } from 'src/projects/projects.entity';
-import { Task } from 'src/tasks/tasks.entity';
-import { Team } from 'src/teams/teams.entity';
 import {
   Column,
   Entity,
@@ -9,6 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Project, Task, Team } from 'src/entities';
 
 export enum UserRole {
   SuperAdmin = 'super-admin',

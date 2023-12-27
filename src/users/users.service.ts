@@ -1,8 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { User } from './users.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'argon2';
+import { Repository } from 'typeorm';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { User } from './users.entity';
+
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
