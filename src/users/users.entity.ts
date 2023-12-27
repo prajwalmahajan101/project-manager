@@ -6,9 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { Project, Task, Team } from '@/entities';
-import { Exclude } from 'class-transformer';
 
 export enum UserRole {
   SuperAdmin = 'super-admin',

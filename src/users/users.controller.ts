@@ -10,15 +10,16 @@ import {
   Patch,
   UseInterceptors,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './users.entity';
-import { UpdateUserDto } from './dtos';
 import {
   ApiBadRequestResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
+import { UsersService } from './users.service';
+import { User } from './users.entity';
+import { UpdateUserDto } from './dtos';
 
 @Controller('users')
 @IsAuth()
