@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db-dev:
+    container_name: app-db-dev
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=app_dev_db
+    ports:
+      - 5432:5432
+    networks:
+      - task-manager
+    volumes:
+      - data:/var/lib/postgresql/data
+networks:
+  task-manager:
+volumes:
+  data:
