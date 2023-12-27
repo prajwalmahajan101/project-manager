@@ -24,7 +24,6 @@ export class AuthController {
   @ApiOkResponse({ description: 'User Logged In' })
   @ApiBadRequestResponse({ description: 'Invalid Input' })
   signin(@Body() dto: SignInUserDto) {
-    console.log(dto);
     return this.authService.signin(dto);
   }
 }
