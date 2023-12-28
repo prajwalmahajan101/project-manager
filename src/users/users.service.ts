@@ -75,7 +75,7 @@ export class UsersService {
       const hashedPassword = await hash(dto.password);
       user.password = hashedPassword;
     }
-    this.userRepo.save(user);
+    await this.userRepo.save(user);
     return user;
   }
 

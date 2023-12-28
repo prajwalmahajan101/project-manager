@@ -167,6 +167,14 @@ describe('App e2e', () => {
           .expectStatus(201);
       });
 
+      it('Should Register Second User with Valid Body', () => {
+        return pactum
+          .spec()
+          .post('/auth/register')
+          .withBody({ ...registerDto, email: 'test2@gmail.com' })
+          .expectStatus(201);
+      });
+
       // Conflicting Email
       it('Should throw if already Registered email is used', () => {
         return pactum
@@ -336,8 +344,152 @@ describe('App e2e', () => {
       });
     });
     // Update
-    describe('Update User', () => {});
+    describe('Update User', () => {
+      // Without Token
+      it('Should Throw without token', () => {
+        return pactum.spec().patch('/users/1').expectStatus(401);
+      });
+      // With invalid Token
+      it('Should Throw Invalid token', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('token')
+          .expectStatus(401);
+      });
+      // With invalid params id
+      it('Should Throw invalid Id', () => {
+        return pactum
+          .spec()
+          .patch('/users/asd')
+          .withBearerToken('$S{token}')
+          .expectStatus(400);
+      });
+      // With not found id
+      it('Should Throw with not Found id', () => {
+        return pactum
+          .spec()
+          .patch('/users/12')
+          .withBearerToken('$S{token}')
+          .expectStatus(404);
+      });
+      it('Should throw when invalid email is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ email: 'test2.com' })
+          .expectStatus(400);
+      });
+      it('Should throw when used email is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ email: 'test2@gmail.com' })
+          .expectStatus(400);
+      });
+      it('Should throw when invalid username is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ username: 123 })
+          .expectStatus(400);
+      });
+      it('Should throw when long username is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ username: '1234567890123456789012345678901234567890' })
+          .expectStatus(400);
+      });
+      it('Should throw when invalid password is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ password: 123456 })
+          .expectStatus(400);
+      });
+      it('Should throw when short password is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ password: '123' })
+          .expectStatus(400);
+      });
+      it('Should throw when invalid designation is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ designation: 123 })
+          .expectStatus(400);
+      });
+      it('Should throw when too short designation is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ designation: '11' })
+          .expectStatus(400);
+      });
+      it('Should throw when too long designation is given', () => {
+        return pactum
+          .spec()
+          .patch('/users/1')
+          .withBearerToken('$S{token}')
+          .withBody({ designation: '1234567890123456789012345678901234567890' })
+          .expectStatus(400);
+      });
+      it('Should update username', () => {
+        return pactum
+          .spec()
+          .patch('/users/2')
+          .withBearerToken('$S{token}')
+          .withBody({ username: 'test3' })
+          .expectStatus(200)
+          .expectJson('username', 'test3');
+      });
+    });
     // Delete
-    describe('Delete User', () => {});
+    describe('Delete User', () => {
+      it('Should Throw without token', () => {
+        return pactum.spec().delete('/users/2').expectStatus(401);
+      });
+      it('Should Throw with Invalid token', () => {
+        return pactum
+          .spec()
+          .delete('/users/2')
+          .withBearerToken('token')
+          .expectStatus(401);
+      });
+      it('Should Throw Invalid Id', () => {
+        return pactum
+          .spec()
+          .delete('/users/asd')
+          .withBearerToken('$S{token}')
+          .expectStatus(400);
+      });
+      it('Should Delete user', () => {
+        return pactum
+          .spec()
+          .delete('/users/12')
+          .withBearerToken('$S{token}')
+          .expectStatus(404);
+        // .expectJson('message', 'user with id 2 deleted Successfully');
+      });
+      it('Should Delete user', () => {
+        return pactum
+          .spec()
+          .delete('/users/2')
+          .withBearerToken('$S{token}')
+          .expectStatus(200)
+          .expectJson('message', 'user with id 2 deleted Successfully');
+      });
+    });
   });
 });
